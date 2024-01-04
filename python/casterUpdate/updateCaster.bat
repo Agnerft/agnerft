@@ -5,8 +5,15 @@ echo ==================================================================
 echo Programa em java para Automações!
 echo ==================================================================
 echo.
-wget -P caster -N "https://portal.makesystem.com.br/caster/Caster.jar"
 
-java -jar ./caster/Caster.jar
+@REM wget.exe -P caster -N "https://portal.makesystem.com.br/caster/Caster.jar"
 
-cls
+mkdir %USERPROFILE%\caster\caster
+
+curl -o %USERPROFILE%\caster\caster\Caster.jar https://portal.makesystem.com.br/caster/Caster.jar
+
+
+java -jar %USERPROFILE%\caster\caster\Caster.jar
+
+pause
+
