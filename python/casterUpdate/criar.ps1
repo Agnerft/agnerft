@@ -1,24 +1,29 @@
 # Caminho para o ícone (.ico)
-$iconeCaminho = "%USERPROFILE%/caster/icon.ico"
+$caminhoIcone = "%USERPROFILE%/caster/icon.ico"
 
 # Caminho para o destino do atalho (pode ser um programa, script, etc.)
-$destinoCaminho = "%USERPROFILE%/caster/updateCaster.bat"
+$caminhoPrograma = "%USERPROFILE%/caster/updateCaster.bat"
 
 # Nome do atalho na área de trabalho
 $nomeAtalho = "Caster"
 
-# Caminho para a área de trabalho
-$areaDeTrabalho = [System.IO.Path]::Combine($env:USERPROFILE, 'Desktop')
+# Caminho completo do atalho para a área de trabalho
+$caminhoAtalhoDesktop = Join-Path $env:USERPROFILE "Desktop\$nomeAtalho.lnk"
 
-# Criar um objeto COM para criar o atalho
+# Caminho completo do atalho para o diretório de inicialização
+$caminhoAtalhoStartup = Join-Path $env:APPDATA "Microsoft\Windows\Start Menu\Programs\Startup\$nomeAtalho.lnk"
+
+# Criar o atalho para a área de trabalho
 $WshShell = New-Object -ComObject WScript.Shell
+$ShortcutDesktop = $WshShell.CreateShortcut($caminhoAtalhoDesktop)
+$ShortcutDesktop.TargetPath = $caminhoPrograma
+$ShortcutDesktop.IconLocation = $caminhoIcone  # Adicionar caminho do ícone
+$ShortcutDesktop.Save()
 
-# Criar o atalho
-$atalho = $WshShell.CreateShortcut([System.IO.Path]::Combine($areaDeTrabalho, "$nomeAtalho.lnk"))
+# Criar o atalho para o diretório de inicialização
+$ShortcutStartup = $WshShell.CreateShortcut($caminhoAtalhoStartup)
+$ShortcutStartup.TargetPath = $caminhoPrograma
+$ShortcutStartup.IconLocation = $caminhoIcone  # Adicionar caminho do ícone
+$ShortcutStartup.Save()
 
-# Definir propriedades do atalho
-$atalho.TargetPath = $destinoCaminho
-$atalho.IconLocation = $iconeCaminho
-$atalho.Save()
-
-Write-Host "Atalho criado na área de trabalho."
+Write-Host "Atalhos configurados para iniciar com o Windows e na área de trabalho."
