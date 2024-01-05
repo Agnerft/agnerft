@@ -2,7 +2,7 @@
 $caminhoIcone = "%USERPROFILE%/caster/icon.ico"
 
 # Caminho para o destino do atalho (pode ser um programa, script, etc.)
-$caminhoPrograma = "%USERPROFILE%/caster/updateCaster.bat"
+$caminhoPrograma = "%USERPROFILE%/caster/casterExecute.exe"
 
 # Nome do atalho na área de trabalho
 $nomeAtalho = "Caster"
